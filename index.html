@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora</title>
+    <style>
+      /* html {
+        height: 100%;
+        width: 100%;
+      } */
+
+      /* body {
+          font-family: Arial, sans-serif;
+          background-image: url('https://c7.alamy.com/comp/2D9N00E/javascript-inscription-against-laptop-and-code-background-learn-javascript-programming-language-computer-courses-training-2D9N00E.jpg');
+        background-repeat: no-repeat;;  
+        background-size: cover;  
+      }
+
+      .calculator {
+          width: 300px;
+          margin: 5% auto;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          background-color: rgb(36, 36, 36);
+        box-shadow: 25px 25px 75px hsla(0, 0%, 0%, 0.25),
+        10px 10px 70px rgba(0, 0, 0, 0.25),
+        inset -5px -5px 15px rgba(0, 0, 0, 0.5),
+        inset 5px 5px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      #button{
+        width: 100%;
+      }
+      .button {
+          width: 50px;
+          height: 50px;
+          font-size: 20px;
+          margin: 10px;
+          margin-left: 11.5px;
+          cursor: pointer;
+          background-color: #f0f0f0;
+          background: linear-gradient(180deg, #2f2f2f, #3f3f3f);
+          box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15),
+              inset 0 -8px 8px rgba(0, 0, 0, 0.25),
+              0 0 0 2px rgba(0, 0, 0, 0.75),
+              10px 20px 25px rgba(0, 0, 0, 0.4);
+          color: white;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          transition: background-color 0.2s ease;
+          user-select: none;
+          font-weight: 400;      
+      }
+
+      .button:hover {
+          color: #F7980a;  
+      }
+
+
+      .button::before:hover{
+        background-color: #e5e0e0;
+      }
+      #display {
+          width: 100%;
+          height: 2.5em;
+          font-size: 20px;
+          margin: 10px 5em 10px 0;
+          /* padding: 5px; 
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.75);
+          text-align: right;
+      }
+
+      .calculator button::before{
+        background: linear-gradient(90deg, #2d2d2d, #4d4d4d);
+        border-radius: 10px;
+        box-shadow: -5px -5px 15px rgba(0, 0, 0, 0.1),
+            10px 5px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .color-red{
+        background: #ff0000;
+      }
+      .color-yelow{
+        background: #F7980a;
+      } */
+    </style>
+    
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" class="display" readonly>
+        <div id="button">
+            <button class="button color-red" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="backspace()">&#9003;</button>
+            <button class="button" id="porcent" onclick="calculatePercentage()">% 
+            </button>
+            <button class="button" onclick="appendToDisplay('/')">/</button>
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button" onclick="appendToDisplay('*')">*</button>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button" onclick="appendToDisplay('-')">-</button>
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button" onclick="appendToDisplay('+')">+</button>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="appendToDisplay('00')">00</button>
+            <button class="button" onclick="appendToDisplay('.')">.</button>
+            <button class="button color-yelow" id="calcul" onclick="calculate('=')">= 
+            </button>
+        </div>
+        
+    </div>
+    <script src="script.js">
+      function appendToDisplay(value) {
+          document.getElementById('display').value += value;
+      }
+
+      function clearDisplay() {
+          document.getElementById('display').value = '';
+      }
+
+      function backspace() {
+          const currentValue = document.getElementById('display').value;
+          document.getElementById('display').value = currentValue.slice(0, -1);
+      }
+
+      function calculate() {
+          const expression = document.getElementById('display').value;
+          try {
+              const result = eval(expression);
+              document.getElementById('display').value = result;
+          } catch (error) {
+              document.getElementById('display').value = 'Error';
+          }
+      }
+
+      document.addEventListener('keydown', (event) => {
+          if (event.key.match(/[0-9+\-*/.]/)) {
+              appendToDisplay(event.key);
+          } else if (event.key === 'Backspace') {
+            backspace();
+        } else if (event.key === '=' || event.key === 'Enter') {
+            calculate();
+        } else if (event.key === 'Delete'){
+            clearDisplay();
+        } else if (event.key === '%'){
+          calculatePercentage();
+        }
+      });
+
+      // Evento para calculcar ao precionar Enter e =;
+      const calcul = document.getElementById('calcul');
+
+      calcul.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || '=') {
+          calculate();
+        }
+      });
+
+      // Função para calcular porcentagem
+      function calculatePercentage(){
+        const expression = document.getElementById('display').value;
+        try{
+          const resultPorcentage = eval(expression) / 100;  
+          document.getElementById('display').value = resultPorcentage;
+        }
+        catch{
+          document.getElementById('display').value = 'Error';
+        }
+      }
+
+
+      /* function calculatePercentage() {
+        const displayValue = document.getElementById('display').value;
+        if (displayValue.trim() !== '') {
+          const num = parseFloat(displayValue.replace(',', '.'));
+          const percentage = num / 100;
+          document.getElementById('display').value = percentage.toString();
+        }
+      } */
+
+      const percentage = document.getElementById('porcent');
+      percentage.addEventListener('click', calculatePercentage());
+
+      // const percentage = document.getElementById('porcent');
+      // percentage.addEventListener('keydown', (event) => {
+      //   if (event.key === '%'){
+      //     calculatePercentage();
+      //   }
+      // });
+
+
+
+
+    </script>
+    
+</body>
+</html>
