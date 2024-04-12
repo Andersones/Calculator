@@ -22,7 +22,7 @@ function calculate() {
 }
 
 document.addEventListener('keydown', (event) => {
-    if (event.key.match(/[0-9+\-*/.]/)) {
+    if (event.key.match(/[0-9+\*-/.]/)) {
         appendToDisplay(event.key);
     } else if (event.key === 'Backspace') {
       backspace();
@@ -64,10 +64,10 @@ function calculatePercentage(){
     const percentage = num / 100;
     document.getElementById('display').value = percentage.toString();
   }
-} */
+} 
 
 const percentage = document.getElementById('porcent');
-percentage.addEventListener('click', calculatePercentage());
+percentage.addEventListener('click', calculatePercentage());*/
 
 // const percentage = document.getElementById('porcent');
 // percentage.addEventListener('keydown', (event) => {
@@ -78,4 +78,4 @@ percentage.addEventListener('click', calculatePercentage());
 
 
 
- */
+ 
