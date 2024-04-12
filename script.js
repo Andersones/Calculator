@@ -1,4 +1,4 @@
-function appendToDisplay(value) {
+/* function appendToDisplay(value) {
     document.getElementById('display').value += value;
 }
 
@@ -78,3 +78,4 @@ percentage.addEventListener('click', calculatePercentage());
 
 
 
+ */
